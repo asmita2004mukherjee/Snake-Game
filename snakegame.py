@@ -45,17 +45,17 @@ class snakegame:
         self.lengths.append(distance)
         self.currentlength += distance
         self.previoushead =cx,cy
-        #length reduction
+        
 
         if self.currentlength>self.allowedlength:
             for i,length in enumerate(self.lengths):
 
                 self.currentlength -=length
                 self.lengths.pop(i)
-                self.points.pop(i)#yeh isliye kiya kyuki stack se bhi toh niklana hai
+                self.points.pop(i)
                 if self.currentlength < self.allowedlength:
                     break
-        #check if snake ate the food just checks if our finger is in the recangular refion
+        
         rx, ry = self.foodPoint
         if rx - self.wFood // 2 < cx < rx + self.wFood // 2 and \
                 ry - self.hFood // 2 < cy < ry + self.hFood // 2:
@@ -74,7 +74,7 @@ class snakegame:
 
 
         #draw snake
-        if self.points: #index out range error hatane ke liye
+        if self.points: 
 
             for i,point in enumerate(self.points):
 
@@ -86,8 +86,8 @@ class snakegame:
             # draw food
             rx, ry = self.foodPoint
             imgMain = cvzone.overlayPNG(imgMain, self.imgFood, (rx - self.wFood // 2, ry - self.hFood // 2))
-            # check for collison after drawing cuz u know hari line aayegi
-            pts = np.array(self.points[:-2], np.int32)  # formlimity to convert to np
+         
+            pts = np.array(self.points[:-2], np.int32) 
             pts = pts.reshape((-1, 1, 2))
             cv2.polylines(imgMain, [pts], False, (0, 255, 0), 3)
             minDist = cv2.pointPolygonTest(pts, (cx, cy), True)
@@ -117,7 +117,7 @@ game = snakegame(r"C:\Users\asmit\OneDrive\Documents\DOCW\donut.jpg")
 
 while True:
     success, img = cap.read()
-    img = cv2.flip(img,1)# 1 matlab horizontal axis
+    img = cv2.flip(img,1)
     hands,img = detector.findHands(img,flipType=False)
 
     if hands:
